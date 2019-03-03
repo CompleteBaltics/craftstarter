@@ -1,4 +1,7 @@
 {
+  "name": "CompleteBaltics/craftstarter",
+  "description": "A starter boilerplate for Craft 3.x with webpack",
+  "version": "1.0.0",
   "require": {
     "craftcms/cms": "^3.0.0",
     "vlucas/phpdotenv": "^2.4.0",
