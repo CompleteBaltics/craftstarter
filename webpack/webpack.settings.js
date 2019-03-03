@@ -15,7 +15,7 @@ module.exports = {
             js: "../src/js/"
         },
         dist: {
-            base: "../web/dist/",
+            base: "../web/assets/",
             clean: [
                 "./assets",
                 "./criticalcss",
@@ -29,7 +29,7 @@ module.exports = {
         live: "https://example.com/",
         local: "http://example.test/",
         critical: "http://example.test/",
-        publicPath: () => process.env.PUBLIC_PATH || "/dist/",
+        publicPath: () => process.env.PUBLIC_PATH || "/assets/",
     },
     vars: {
         cssName: "styles"
@@ -44,7 +44,7 @@ module.exports = {
         }
     ],
     criticalCssConfig: {
-        base: "../web/dist/criticalcss/",
+        base: "../web/assets/criticalcss/",
         suffix: "_critical.min.css",
         criticalHeight: 1200,
         criticalWidth: 1200,
@@ -103,7 +103,7 @@ module.exports = {
         swDest: "../sw.js",
         precacheManifestFilename: "js/precache-manifest.[manifestHash].js",
         importScripts: [
-            "/dist/workbox-catch-handler.js"
+            "/assets/workbox-catch-handler.js"
         ],
         exclude: [
             /\.(png|jpe?g|gif|svg|webp)$/i,
