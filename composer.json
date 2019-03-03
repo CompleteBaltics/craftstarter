@@ -1,5 +1,5 @@
 {
-  "name": "CompleteBaltics/craftstarter",
+  "name": "completebaltics/craftstarter",
   "description": "A starter boilerplate for Craft 3.x with webpack",
   "version": "1.0.1",
   "require": {
