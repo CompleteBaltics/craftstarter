@@ -10,41 +10,42 @@ module.exports = {
     copyright: "Example Company, Inc.",
     paths: {
         src: {
-            base: "../src/",
-            css: "../src/css/",
-            js: "../src/js/"
+            base: "./src/",
+            css: "./src/css/",
+            js: "./src/js/"
         },
         dist: {
-            base: "../web/assets/",
+            base: "./web/assets/",
             clean: [
-                "./assets",
+                "./img",
                 "./criticalcss",
                 "./css",
                 "./js"
             ]
         },
-        templates: "../templates/"
+        templates: "./templates/"
     },
     urls: {
         live: "https://example.com/",
-        local: "http://example.test/",
-        critical: "http://example.test/",
+        local: "http://test/",
+        critical: "http://test/",
         publicPath: () => process.env.PUBLIC_PATH || "/assets/",
     },
     vars: {
         cssName: "styles"
     },
     entries: {
-        "app": "app.js"
+        "index": "index.js",
+        "router": "router.js"
     },
     copyWebpackConfig: [
         {
-            from: "../src/js/workbox-catch-handler.js",
+            from: "./src/js/workbox-catch-handler.js",
             to: "js/[name].[ext]"
         }
     ],
     criticalCssConfig: {
-        base: "../web/assets/criticalcss/",
+        base: "./web/assets/criticalcss/",
         suffix: "_critical.min.css",
         criticalHeight: 1200,
         criticalWidth: 1200,
@@ -70,17 +71,16 @@ module.exports = {
     },
     purgeCssConfig: {
         paths: [
-            "../templates/**/*.{twig,html}"
+            "./templates/**/*.{twig,html}"
         ],
         whitelist: [
-            "../src/css/components/**/*.{css,pcss}"
+            "./src/css/components/**/*.{css,pcss}"
         ],
         whitelistPatterns: [],
         extensions: [
             "html",
             "js",
-            "twig",
-            "vue"
+            "twig"
         ]
     },
     saveRemoteFileConfig: [
@@ -91,13 +91,13 @@ module.exports = {
     ],
     createSymlinkConfig: [
         {
-            origin: "assets/favicons/favicon.ico",
+            origin: "img/favicons/favicon.ico",
             symlink: "../favicon.ico"
         }
     ],
     webappConfig: {
-        logo: "../src/assets/favicon-src.png",
-        prefix: "assets/favicons/"
+        logo: "./src/assets/favicon-src.png",
+        prefix: "img/favicons/"
     },
     workboxConfig: {
         swDest: "../sw.js",
@@ -109,11 +109,6 @@ module.exports = {
             /\.(png|jpe?g|gif|svg|webp)$/i,
             /\.map$/,
             /^manifest.*\\.js(?:on)?$/,
-        ],
-        globDirectory: "./web/",
-        globPatterns: [
-            "offline.html",
-            "offline.svg"
         ],
         offlineGoogleAnalytics: true,
         runtimeCaching: [

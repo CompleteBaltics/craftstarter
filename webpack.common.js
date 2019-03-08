@@ -12,7 +12,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 
 // config files
-const pkg = require('../package.json');
+const pkg = require('./package.json');
 const settings = require('./webpack.settings.js');
 
 // Configure Babel loader
@@ -36,6 +36,7 @@ const configureBabelLoader = (browserList) => {
                 ],
                 plugins: [
                     '@babel/plugin-syntax-dynamic-import',
+                    '@babel/plugin-proposal-class-properties',
                     [
                         "@babel/plugin-transform-runtime", {
                         "regenerator": true
@@ -92,9 +93,11 @@ const baseConfig = {
         path: path.resolve(__dirname, settings.paths.dist.base),
         publicPath: settings.urls.publicPath()
     },
+    resolve: {
+    },
     module: {
         rules: [
-            configureFontLoader(),
+            configureFontLoader()
         ],
     },
     plugins: [
@@ -115,7 +118,7 @@ const legacyConfig = {
         ),
         new ManifestPlugin(
             configureManifest('manifest-legacy.json')
-        ),
+        )
     ]
 };
 
@@ -129,7 +132,7 @@ const modernConfig = {
     plugins: [
         new ManifestPlugin(
             configureManifest('manifest.json')
-        ),
+        )
     ]
 };
 

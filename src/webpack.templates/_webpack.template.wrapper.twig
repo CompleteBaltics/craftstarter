@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" class="no-js">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="HandheldFriendly" content="true" />
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+		{% hook 'seo' %}				
+		{{ head() }}
+
+		{# NOTE: CREATE AND INSERT FAVICON LINKS AND META TAGS - Can use "http://realfavicongenerator.net/" #}
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+		<link rel="manifest" href="/site.webmanifest">
+		<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#89c765">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="theme-color" content="#ffffff">
+
+		{# NOTE: INSERT GOOGLE ANALYTICS CODE #}
+
+		{% if gaTracking is defined %}
+			{{ gaTracking.googleAnalyticsTrackingCode|raw }}
+		{% endif %}
+		<!-- End of Async Drift Code -->
+
+		{# NOTE: Webpack Styles Bundles Auto Created By HtmlWebpackPlugin and placed here #}
+	</head>
+	<body data-full-viewport="off" {% if bodyClass is defined %} class="{{ bodyClass }}"{% endif %}>
+		{# _WRAPPER CONTAINER - START #}
+		<div id="container" class="container">
+
+			{# HEADER #}
+			<header id="header">
+				{% block header %}{% endblock %}
+			</header>
+
+			{# MAIN #}
+			<main id="content" role="main">
+				{% block main %}{% endblock %}
+			</main>
+
+			{% set footerClass = 'main-footer' %}
+			{% if entry is defined %}
+				{% if entry.uri == '__home__' %}
+					{% set footerClass = 'home' %}
+				{% endif %}
+			{% endif %}
+			
+			{# FOOTER #}
+			<footer id="footer" class="{{ footerClass }}">
+				{% block footer %}{% endblock %}
+			</footer>
+
+			<div id="browserNotSupported" class="old-browser-notification">
+				<p>Your web browser is out of date. Please update your browser for more security, speed and the best experience on this site. <a href="http://outdatedbrowser.com/" target="_blank">Update browser here</a></p><span class="close-icon"></span>
+			</div>
+  			
+		</div>
+		{# _WRAPPER CONTAINER - END #}
+
+		{# NOTE: Webpack Script Bundles Auto Created By HtmlWebpackPlugin and placed here #}
+	</body>
+</html>

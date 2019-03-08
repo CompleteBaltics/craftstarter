@@ -11,11 +11,13 @@ const webpack = require('webpack');
 // webpack plugins
 const Dashboard = require('webpack-dashboard');
 const DashboardPlugin = require('webpack-dashboard/plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const dashboard = new Dashboard();
 
 // config files
 const common = require('./webpack.common.js');
-const pkg = require('../package.json');
+const pkg = require('./package.json');
 const settings = require('./webpack.settings.js');
 
 // Configure the webpack-dev-server
@@ -83,6 +85,16 @@ const configureImageLoader = (buildType) => {
     }
 };
 
+// Configure Html webpack
+const configureHtml = () => {
+    console.log(path.join(__dirname, settings.paths.src.base, 'webpack.templates/_webpack.template.wrapper.twig'))
+    return {
+        template: path.join(__dirname, settings.paths.src.base, 'webpack.templates/_webpack.template.wrapper.twig'),
+        filename: path.join(__dirname, settings.paths.templates, 'layout.twig'),
+        alwaysWriteToDisk: true
+    };
+};
+
 // Configure the Postcss loader
 const configurePostcssLoader = (buildType) => {
     // Don't generate CSS for the legacy config in development
@@ -139,7 +151,7 @@ module.exports = [
                 ],
             },
             plugins: [
-                new webpack.HotModuleReplacementPlugin(),
+                new webpack.HotModuleReplacementPlugin()
             ],
         }
     ),
@@ -160,6 +172,10 @@ module.exports = [
                 ],
             },
             plugins: [
+                new HtmlWebpackPlugin(
+                    configureHtml()
+                ),
+                new HtmlWebpackHarddiskPlugin(),
                 new webpack.HotModuleReplacementPlugin(),
                 new DashboardPlugin(dashboard.setData),
             ],

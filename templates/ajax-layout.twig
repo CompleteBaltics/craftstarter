@@ -1,0 +1,13 @@
+{#
+ # Ajax layout template
+ # ---------------
+ #
+ #}
+{% set isMobileBrowser = craft.request.isMobileBrowser(true) %}
+{% set isMobile = craft.request.isMobileBrowser() %}
+
+<div {% if entry is defined %}data-entry="{{entry.type}}" {% endif %} class="ajax-loaded">
+  {% block content %}
+    <p>If you see me, you haven’t set your <code>{% verbatim %}{% block content %}…{% endblock %}{% endverbatim %}</code> yet.</p>
+  {% endblock %}
+</div>
