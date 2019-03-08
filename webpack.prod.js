@@ -3,7 +3,6 @@ const LEGACY_CONFIG = 'legacy';
 const MODERN_CONFIG = 'modern';
 
 // node modules
-const git = require('git-rev-sync');
 const glob = require('glob-all');
 const merge = require('webpack-merge');
 const moment = require('moment');
@@ -28,7 +27,7 @@ const WorkboxPlugin = require('workbox-webpack-plugin');
 
 // config files
 const common = require('./webpack.common.js');
-const pkg = require('../package.json');
+const pkg = require('./package.json');
 const settings = require('./webpack.settings.js');
 
 // Custom PurgeCSS extractor for Tailwind that allows special characters in
@@ -50,7 +49,6 @@ const configureBanner = () => {
             ' * @name           ' + '[filebase]',
             ' * @author         ' + pkg.author.name,
             ' * @build          ' + moment().format('llll') + ' ET',
-            ' * @release        ' + git.long() + ' [' + git.branch() + ']',
             ' * @copyright      Copyright (c) ' + moment().format('YYYY') + ' ' + settings.copyright,
             ' *',
             ' */',
@@ -65,13 +63,13 @@ const configureBundleAnalyzer = (buildType) => {
     if (buildType === LEGACY_CONFIG) {
         return {
             analyzerMode: 'static',
-            reportFilename: '../report-legacy.html',
+            reportFilename: 'report-legacy.html',
         };
     }
     if (buildType === MODERN_CONFIG) {
         return {
             analyzerMode: 'static',
-            reportFilename: '../report-modern.html',
+            reportFilename: 'report-modern.html',
         };
     }
 };
@@ -115,9 +113,8 @@ const configureCleanWebpack = () => {
 // Configure Html webpack
 const configureHtml = () => {
     return {
-        templateContent: '',
-        filename: 'webapp.html',
-        inject: false,
+        template: path.join(__dirname, settings.paths.src.base, 'webpack.templates/_webpack.template.wrapper.twig'),
+        filename: path.join(__dirname, settings.paths.templates, 'layout.twig')
     };
 };
 
